@@ -47,4 +47,4 @@ class Ventana():
         self.btnFrame.pack(pady=10)
 
         self.btnIngresar = Button(self.btnFrame, text="Ingresar", width=10, height=1, background="blue", fg="white", font=('MS Reference Sans Serif', 11, ) ).pack(padx=10,side="left")
-        self.btnRegistrar = Button(self.btnFrame, text="Registrate", width=10, height=1, background="blue", command=Ventana_registro,fg="white",font=('MS Reference Sans Serif', 11 )).pack(padx=10,side="left")
+        self.btnRegistrar = Button(self.btnFrame, text="Registrate", width=10, height=1, background="blue", command=Ventana_Registro_Vista,fg="white",font=('MS Reference Sans Serif', 11 )).pack(padx=10,side="left")
