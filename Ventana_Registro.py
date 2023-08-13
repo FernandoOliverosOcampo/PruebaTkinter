@@ -13,8 +13,7 @@ class Ventana_Registro_Vista():
     def configurar_ventana(self):
         self.root.title("Registro de usuario") #Aplica un titulo a la ventana
         self.root.resizable(0,0)  #Evita que se pueda redimensionar la ventana
-        self.root.iconbitmap(
-            r'C:\Users\ferni\Downloads\Datos\Documentos\Fercho\Python\Practica tkinter\icon.ico')
+        self.root.iconbitmap(f'icon.ico')
         self.dimensiones_ventana()
 
     def dimensiones_ventana(self):

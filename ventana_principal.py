@@ -31,7 +31,7 @@ class Ventana():
         self.root.title("Ventana prueba")
         self.root.config(bg="white")
         self.root.iconbitmap(
-            r'C:\Users\ferni\Downloads\Datos\Documentos\Fercho\Python\Practica tkinter\icon.ico')
+            f'icon.ico')
         self.root.resizable(0, 0)
 
     def ElementosVentana(self):
