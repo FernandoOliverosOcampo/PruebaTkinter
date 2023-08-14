@@ -2,18 +2,20 @@ import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
 import pymysql
-
+from PIL import Image, ImageTk
+from imagenes import *
 class Ventana_Registro_Vista():
 
     def __init__(self):
         self.root = tk.Tk()
         self.configurar_ventana()
+        self.Elementos_Ventana()
         self.ventana_bonita()
 
     def configurar_ventana(self):
         self.root.title("Registro de usuario") #Aplica un titulo a la ventana
         self.root.resizable(0,0)  #Evita que se pueda redimensionar la ventana
-        self.root.iconbitmap(f'icon.ico')
+        self.root.iconbitmap("imagenes/icon.ico")
         self.dimensiones_ventana()
 
     def dimensiones_ventana(self):
@@ -29,6 +31,18 @@ class Ventana_Registro_Vista():
         # Geometria de la ventana
         self.root.geometry(str(wventana)+"x"+str(hventana) + "+"+str(pwidth)+"+"+str(pheight))
 
+    def Elementos_Ventana(self):
+        try:
+            self.bg = Image.open("imagenes/descarga1.png")
+            # new_width = 400  # Nuevo ancho en píxeles
+            # new_height = 300  # Nuevo alto en píxeles
+            # self.bg = self.bg.resize((new_width, new_height),Image.LANCZOS)
+            self.background_img = ImageTk.PhotoImage(self.bg)
+            self.lbl_imagen = Label(self.root, image=self.background_img)
+            self.lbl_imagen.pack()
+        except Exception as e:
+            print("Error al cargar la imagen:", e)
+            
     def ventana_bonita(self):
         self.root.config(bg="white")
         self.lblTitulo = Label(self.root, text="Registro de usuarios", font=('MS Reference Sans Serif', '15', 'bold'), bg="white")

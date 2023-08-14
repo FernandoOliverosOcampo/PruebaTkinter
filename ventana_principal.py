@@ -4,6 +4,7 @@ from Ventana_Registro import Ventana_Registro_Vista
 from Ventana_Menu import Ventana_Menu
 import pymysql
 from tkinter import messagebox
+from PIL import Image, ImageTk
 # --------VENTANA-----------
 
 class Ventana():
@@ -11,6 +12,7 @@ class Ventana():
         self.root = tk.Tk()
         self.DecoracionVentana()
         self.ConfigurarVentana()
+        self.Elementos_Ventana()
         self.ElementosVentana()
         self.root.mainloop()
 
@@ -20,7 +22,7 @@ class Ventana():
         htotal = self.root.winfo_screenheight()
         # Tamaño de la ventana
         wventana = 500
-        hventana = 300
+        hventana = 370
         # Calculamos la posición
         pwidth = round(wtotal/2-wventana/2)
         pheight = round(htotal/2-hventana/2)
@@ -30,9 +32,22 @@ class Ventana():
     def DecoracionVentana(self):
         self.root.title("Ventana prueba")
         self.root.config(bg="white")
-        self.root.iconbitmap(
-            f'icon.ico')
+        self.root.iconbitmap("imagenes/icon.ico")
         self.root.resizable(0, 0)
+        
+
+    def Elementos_Ventana(self):
+        try:
+            self.bg = Image.open("imagenes/descarga1.png")
+            # new_width = 400  # Nuevo ancho en píxeles
+            # new_height = 300  # Nuevo alto en píxeles
+            # self.bg = self.bg.resize((new_width, new_height),Image.LANCZOS)
+            self.background_img = ImageTk.PhotoImage(self.bg)
+            self.lbl_imagen = Label(self.root, image=self.background_img)
+            self.lbl_imagen.pack()
+        except Exception as e:
+            print("Error al cargar la imagen:", e)
+
 
     def ElementosVentana(self):
         #TITULO
