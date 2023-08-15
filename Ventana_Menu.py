@@ -1,12 +1,14 @@
 from tkinter import *
 from PIL import Image, ImageTk
+from Ventana_registro_Empleados import Registro_Datos_Empleados
 
 class Ventana_Menu():
     def __init__(self):
         self.root = Tk()
-        self.Detalles_Ventana()
         self.Elementos_Ventana()
+        self.Detalles_Ventana()
         self.Menu()
+        self.root.mainloop()
 
     def Detalles_Ventana(self):
         self.root.title("Menu Principal")
@@ -28,9 +30,12 @@ class Ventana_Menu():
     def Elementos_Ventana(self):
         try:
             self.bg = Image.open("imagenes/descarga.png")
+            # new_width = 400  # Nuevo ancho en píxeles
+            # new_height = 300  # Nuevo alto en píxeles
+            # self.bg = self.bg.resize((new_width, new_height),Image.LANCZOS)
             self.background_img = ImageTk.PhotoImage(self.bg)
             self.lbl_imagen = Label(self.root, image=self.background_img)
-            self.lbl_imagen.place(x=100, y=100)
+            self.lbl_imagen.pack()
         except Exception as e:
             print("Error al cargar la imagen:", e)
 
@@ -52,7 +57,7 @@ class Ventana_Menu():
 
         #subopciones
         
-        subopciones.add_command(label="registro usuarios")
+        subopciones.add_command(label="Registro empleados", command=Registro_Datos_Empleados)
         subopciones.add_command(label="registro datos")
 
         #cascada de los items
@@ -65,6 +70,4 @@ class Ventana_Menu():
         exitmenu.add_command(label="Salir",command=self.root.quit)
  
 
-if __name__ == "__main__":
-    ventana = Ventana_Menu()
-    ventana.root.mainloop()
+

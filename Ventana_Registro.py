@@ -4,6 +4,7 @@ from tkinter import messagebox
 import pymysql
 from PIL import Image, ImageTk
 from imagenes import *
+
 class Ventana_Registro_Vista():
 
     def __init__(self):
@@ -23,7 +24,7 @@ class Ventana_Registro_Vista():
         htotal = self.root.winfo_screenheight()
         wtotal = self.root.winfo_screenwidth()
         # tamaño de la ventana
-        hventana = 400
+        hventana = 500
         wventana = 400
         # Calculo
         pwidth = round(wtotal/2-wventana/2)
@@ -87,8 +88,6 @@ class Ventana_Registro_Vista():
                 # Confirmar y cerrar la conexión
                 conexion.commit()
                 conexion.close()
-           
-
                 messagebox.showinfo(message="Usuario registrado con éxito.", title="Exito")
 
             except:
