@@ -1,4 +1,4 @@
-from ventana_principal import *
+from Vista.ventana_principal import *
 
 class App:
     
