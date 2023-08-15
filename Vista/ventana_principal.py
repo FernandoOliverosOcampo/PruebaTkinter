@@ -32,7 +32,7 @@ class Ventana():
     def DecoracionVentana(self):
         self.root.title("Ventana prueba")
         self.root.config(bg="white")
-        self.root.iconbitmap("imagenes/icon.ico")
+        self.root.iconbitmap("imagenes/F1.ico")
         self.root.resizable(0, 0)
         
 
@@ -70,9 +70,9 @@ class Ventana():
         self.btnFrame = Frame(self.root, background="white")  
         self.btnFrame.pack(pady=10)
 
-        self.btn_ingresar = Button(self.btnFrame, text="Ingresar", width=10, height=1, background="blue",  activebackground="red",fg="white", font=('MS Reference Sans Serif', 11, ), command=self.inicio_de_sesion )
+        self.btn_ingresar = Button(self.btnFrame, text="Ingresar", width=10, height=1, background="#ea1608",  activebackground="red",fg="white", font=('MS Reference Sans Serif', 11,'bold' ), command=self.inicio_de_sesion )
         self.btn_ingresar.pack(padx=10,side="left")
-        self.btn_registrar = Button(self.btnFrame, text="Registrate", width=10, height=1, background="blue", command=self.Abrir_Registro,fg="white",font=('MS Reference Sans Serif', 11 ))
+        self.btn_registrar = Button(self.btnFrame, text="Registrate", width=10, height=1, background="#ea1608", command=self.Abrir_Registro,fg="white",font=('MS Reference Sans Serif', 11, 'bold'))
         self.btn_registrar.pack(padx=10,side="left")
     
     def inicio_de_sesion(self):
@@ -100,6 +100,5 @@ class Ventana():
             messagebox.showerror(message="Error al ingresar, los campos estan vacios", title="Error!")
 
     def Abrir_Registro(self):
-        self.root.destroy()
-        Ventana_Registro_Vista()
+        Ventana_Registro_Vista(self.root)
        

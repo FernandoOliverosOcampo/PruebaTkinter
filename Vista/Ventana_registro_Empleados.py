@@ -11,11 +11,12 @@ class Registro_Datos_Empleados(tk.Toplevel):
         self.Imagen_Ventana()
         self.Decoracion_Ventana()
         self.mainloop()
-        
+
     def Decoracion_Ventana(self):
         self.title("Registro de empleados")
-        self.iconbitmap("imagenes/icon.ico")
+        self.iconbitmap("imagenes/F1.ico")
         self.config(bg="white")
+        self.resizable(0,0)
         self.Dimensiones_Ventana()
         self.Elementos_ventana()
 
@@ -76,7 +77,7 @@ class Registro_Datos_Empleados(tk.Toplevel):
         self.list_genero['values'] = self.Datos_Combo_Genero()
         
         # BOTON
-        self.btn_registrar = Button(self, text="Registrar", bg="blue", font=('MS Reference Sans Serif', 10), width=15, height=1, fg='white', command=self.Registrar_Empleado)
+        self.btn_registrar = Button(self, text="Registrar", bg="#ea1608", font=('MS Reference Sans Serif', 10, 'bold'), width=15, height=1, fg='white', command=self.Registrar_Empleado)
         self.btn_registrar.pack(pady=15, side="bottom")
 
 #CONEXION DE LA BASE DE DATOS

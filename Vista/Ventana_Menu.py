@@ -1,6 +1,7 @@
 from tkinter import *
 from PIL import Image, ImageTk
 from Vista.Ventana_registro_Empleados import Registro_Datos_Empleados
+from Vista.Ventana_Productos import Ventana_Registro_Productos
 
 class Ventana_Menu():
     def __init__(self):
@@ -12,7 +13,7 @@ class Ventana_Menu():
 
     def Detalles_Ventana(self):
         self.root.title("Menu Principal")
-        self.root.iconbitmap("imagenes/icon.ico")
+        self.root.iconbitmap("imagenes/F1.ico")
         self.root.state('zoomed')
         self.root.resizable(0,0)
         self.Dimensiones_Ventana()
@@ -57,8 +58,8 @@ class Ventana_Menu():
 
         #subopciones
         
-        subopciones.add_command(label="Registro empleados", command=self.ventana)
-        subopciones.add_command(label="registro datos")
+        subopciones.add_command(label="Registro empleados", command=self.ventana_empleado)
+        subopciones.add_command(label="registro productos", command=self.ventana_producto)
 
         #cascada de los items
         filemenu.add_cascade(label="Registro", menu=subopciones)
@@ -71,5 +72,10 @@ class Ventana_Menu():
  
 
 
-    def ventana(self):
+    def ventana_empleado(self):
         registro = Registro_Datos_Empleados(self.root)
+
+    def ventana_producto(self):
+        producto = Ventana_Registro_Productos(self.root)
+if __name__ =="__main__":
+    Ventana_Menu()
