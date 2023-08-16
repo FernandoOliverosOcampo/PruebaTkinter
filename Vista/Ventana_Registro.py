@@ -63,7 +63,7 @@ class Ventana_Registro_Vista(tk.Toplevel):
         self.txt_contraseña.pack(pady=10)
         #regresar
       
-        self.b1 = Button(self, text="Registrate", width=10, height=1, background="#ea1608", fg="white", font=('MS Reference Sans Serif', 11,'bold'),command=self.registrar_usuario)
+        self.b1 = Button(self, text="Registrate", width=15, height=1, background="#ea1608", fg="white", font=('MS Reference Sans Serif', 10,'bold'),command=self.registrar_usuario)
         self.b1.pack(padx=10)
     
     def registrar_usuario(self):
@@ -89,8 +89,11 @@ class Ventana_Registro_Vista(tk.Toplevel):
                 conexion.commit()
                 conexion.close()
                 messagebox.showinfo(message="Usuario registrado con éxito.", title="Exito")
+                self.destroy()
 
             except:
                 messagebox.showerror(message="Error al registrar el usuario:",title="Error")
+            
         else:
             messagebox.showerror(message="Verifique que los campos esten llenos", title="Campos vacios")
+            self.destroy()

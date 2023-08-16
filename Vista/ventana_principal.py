@@ -70,9 +70,9 @@ class Ventana():
         self.btnFrame = Frame(self.root, background="white")  
         self.btnFrame.pack(pady=10)
 
-        self.btn_ingresar = Button(self.btnFrame, text="Ingresar", width=10, height=1, background="#ea1608",  activebackground="red",fg="white", font=('MS Reference Sans Serif', 11,'bold' ), command=self.inicio_de_sesion )
+        self.btn_ingresar = Button(self.btnFrame, text="Ingresar", width=15, height=1, background="#ea1608",  activebackground="red",fg="white", font=('MS Reference Sans Serif', 10,'bold' ), command=self.inicio_de_sesion )
         self.btn_ingresar.pack(padx=10,side="left")
-        self.btn_registrar = Button(self.btnFrame, text="Registrate", width=10, height=1, background="#ea1608", command=self.Abrir_Registro,fg="white",font=('MS Reference Sans Serif', 11, 'bold'))
+        self.btn_registrar = Button(self.btnFrame, text="Registrate", width=15, height=1, background="#ea1608", command=self.Abrir_Registro,fg="white",font=('MS Reference Sans Serif', 10, 'bold'))
         self.btn_registrar.pack(padx=10,side="left")
     
     def inicio_de_sesion(self):

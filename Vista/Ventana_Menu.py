@@ -59,7 +59,7 @@ class Ventana_Menu():
         #subopciones
         
         subopciones.add_command(label="Registro empleados", command=self.ventana_empleado)
-        subopciones.add_command(label="registro productos", command=self.ventana_producto)
+        subopciones.add_command(label="Registro productos", command=self.ventana_producto)
 
         #cascada de los items
         filemenu.add_cascade(label="Registro", menu=subopciones)
