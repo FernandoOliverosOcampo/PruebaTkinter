@@ -4,10 +4,12 @@ from tkinter import *
 from tkinter import messagebox
 import pymysql
 from PIL import Image, ImageTk
+from Vista.Ventana_update_empleado import Ventana_Update
 
 class Registro_Datos_Empleados(tk.Toplevel):
     def __init__(self,root):
         super().__init__(root)
+        self.root = root
         self.Imagen_Ventana()
         self.Decoracion_Ventana()
         self.Actualizar_Tabla() 
@@ -85,8 +87,13 @@ class Registro_Datos_Empleados(tk.Toplevel):
         self.list_genero['values'] = self.Datos_Combo_Genero()
         
         # BOTON
+        self.btn_update = Button(self, text="Actualizar", font=("MS Reference Sans Serif", 10, "bold"), width=15, height=1, bg="#ea1608", fg="white", command=self.ventana_update)
+        self.btn_update.pack(padx=80 ,side="left")
         self.btn_registrar = Button(self, text="Registrar", bg="#ea1608", font=('MS Reference Sans Serif', 10, 'bold'), width=15, height=1, fg='white', command=self.Registrar_Empleado)
-        self.btn_registrar.pack(pady=15, side="bottom")
+        self.btn_registrar.pack(padx=80, side="left")
+        self.btn_eliminar = Button(self, text="Eliminar", width=15, height=1, font=("MS Reference Sans Serif", 10, "bold"), fg="white", bg="#ea1608", command=self.ventana_eliminar)
+        self.btn_eliminar.pack(padx=80, side="right")
+
 
     def Tabla_datos(self):
         self.lista = ttk.Treeview(self, columns=(1,2,3,4,5,6), show="headings", height="5")
@@ -100,7 +107,7 @@ class Registro_Datos_Empleados(tk.Toplevel):
         self.lista.heading(5, text="Trabajo")
         self.lista.heading(6, text="Genero")
         self.lista.column(1, width=30, anchor=CENTER)
-        self.lista.column(2, width=200, anchor=CENTER)
+        self.lista.column(2, width=208, anchor=CENTER)
         self.lista.column(3, width=200, anchor=CENTER)
         self.lista.column(4, width=200, anchor=CENTER)
         self.lista.column(5, width=100, anchor=CENTER)
@@ -203,7 +210,10 @@ class Registro_Datos_Empleados(tk.Toplevel):
                
         else:
             messagebox.showerror(title="Error!!!", message="Los campos estan vacios, por favor llenelos")
-            self.destroy()
-    
 
-    
+    def ventana_update(self):
+        ventana = Ventana_Update(self, self)
+
+
+    def ventana_eliminar(self):
+        ventana = None

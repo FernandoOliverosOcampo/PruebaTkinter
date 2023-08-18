@@ -77,5 +77,4 @@ class Ventana_Menu():
 
     def ventana_producto(self):
         producto = Ventana_Registro_Productos(self.root)
-if __name__ =="__main__":
-    Ventana_Menu()
+

@@ -12,7 +12,7 @@ class Ventana():
         self.root = tk.Tk()
         self.DecoracionVentana()
         self.ConfigurarVentana()
-        self.Elementos_Ventana()
+        self.Imagen_Ventana()
         self.ElementosVentana()
         self.root.mainloop()
 
@@ -34,9 +34,8 @@ class Ventana():
         self.root.config(bg="white")
         self.root.iconbitmap("imagenes/F1.ico")
         self.root.resizable(0, 0)
-        
 
-    def Elementos_Ventana(self):
+    def Imagen_Ventana(self):
         try:
             self.bg = Image.open("imagenes/descarga1.png")
             # new_width = 400  # Nuevo ancho en píxeles
@@ -56,13 +55,13 @@ class Ventana():
       
         #USUARIO
         self.lbl_usuario = Label(self.root, text="Usuario: ", background="white",font=('MS Reference Sans Serif','10','bold'))
-        self.lbl_usuario.pack(anchor="w",padx=100)
+        self.lbl_usuario.pack(anchor="w",padx=96)
         self.txt_usuario = Entry(self.root,relief="sunken",bg="#f7f9fc",width=30,justify="left", font=('MS Reference Sans Serif', 12 ))
         self.txt_usuario.pack(pady=5)
       
         #CONTRASEÑA
         self.lbl_contraseña = Label(self.root, text="Contraseña:", background="white", font=('MS Reference Sans Serif','10','bold'))
-        self.lbl_contraseña.pack(anchor="w",padx=100)
+        self.lbl_contraseña.pack(anchor="w",padx=96)
 
         self.txt_contraseña = Entry(self.root, relief="sunken", bg="#f7f9fc",width=30, justify="left",font=('MS Reference Sans Serif', 12 ),show="*")
         self.txt_contraseña.pack(pady=10)
