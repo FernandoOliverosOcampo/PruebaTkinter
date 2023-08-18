@@ -5,6 +5,7 @@ from tkinter import messagebox
 import pymysql
 from PIL import Image, ImageTk
 from Vista.Ventana_update_empleado import Ventana_Update
+from Vista.Ventana_Delete_empleado import Ventana_Borrar
 
 class Registro_Datos_Empleados(tk.Toplevel):
     def __init__(self,root):
@@ -58,32 +59,32 @@ class Registro_Datos_Empleados(tk.Toplevel):
         self.Tabla_datos()
         # NOMBRE
         self.label_nombre = Label(self, text="Nombre Completo: ", bg="white", font=('MS Reference Sans Serif', 10, 'bold'))
-        self.label_nombre.pack(anchor="w", padx=28)
+        self.label_nombre.pack(anchor="w", padx=118)
         self.txt_nombre = Entry(self, width=30, font=('MS Reference Sans Serif', 11), relief='groove', bg="#f7f9fc")
-        self.txt_nombre.pack(pady=5, anchor="w", padx=30)
+        self.txt_nombre.pack(pady=5, anchor="w", padx=120)
         # CORREO
         self.label_correo = Label(self, text="Correo electronico: ", font=('MS Reference Sans Serif', 10, 'bold'), bg="white")
-        self.label_correo.pack(anchor="w", padx=28)
+        self.label_correo.pack(anchor="w", padx=118)
         self.txt_correo = Entry(self, width=30, font=('MS Reference Sans Serif', 11), relief='groove', bg="#f7f9fc")
-        self.txt_correo.pack(pady=5, anchor="w", padx=30)
+        self.txt_correo.pack(pady=5, anchor="w", padx=120)
         # NUMERO
         self.lbl_numero = Label(self, text="Numero de telefono:", bg="white", font=('MS Reference Sans Serif', 10, 'bold'))
-        self.lbl_numero.place(x=347,y=310)
+        self.lbl_numero.place(x=468,y=310)
         self.txt_numero = Entry(self, width=30, font=('MS Reference Sans Serif', 11), relief="groove", bg="#f7f9fc")
-        self.txt_numero.place(x=350,y=336)
+        self.txt_numero.place(x=470,y=338)
         # TRABAJO
         self.lbl_trabajos = Label(self, text="Trabajo a cargo:", bg="white", font=('MS Reference Sans Serif', 10, 'bold'))
-        self.lbl_trabajos.pack(anchor="w", padx=28)
+        self.lbl_trabajos.pack(anchor="w", padx=118)
         self.list_trabajo = ttk.Combobox(self, width=35, height=3,font=('MS Reference Sans Serif', 10))
         self.list_trabajo.state(["readonly"])
-        self.list_trabajo.pack(pady=5, anchor="w", padx=30)
+        self.list_trabajo.pack(pady=5, anchor="w", padx=120)
         self.list_trabajo['values'] = self.Datos_Combo_Trabajo()
         # GENERO
         self.lbl_genero = Label(self, text="Genero:", bg='white', font=('MS Reference Sans Serif', 10, 'bold'))
-        self.lbl_genero.place(x=347,y=368)
+        self.lbl_genero.place(x=468,y=368)
         self.list_genero = ttk.Combobox(self, width=35, height=2, font=('MS Reference Sans Serif', 10))
         self.list_genero.state(["readonly"])
-        self.list_genero.place(x=350,y=392)
+        self.list_genero.place(x=470,y=393)
         self.list_genero['values'] = self.Datos_Combo_Genero()
         
         # BOTON
@@ -107,11 +108,11 @@ class Registro_Datos_Empleados(tk.Toplevel):
         self.lista.heading(5, text="Trabajo")
         self.lista.heading(6, text="Genero")
         self.lista.column(1, width=30, anchor=CENTER)
-        self.lista.column(2, width=208, anchor=CENTER)
-        self.lista.column(3, width=200, anchor=CENTER)
-        self.lista.column(4, width=200, anchor=CENTER)
-        self.lista.column(5, width=100, anchor=CENTER)
-        self.lista.column(6, width=100, anchor=CENTER)
+        self.lista.column(2, width=220)
+        self.lista.column(3, width=200)
+        self.lista.column(4, width=200)
+        self.lista.column(5, width=100)
+        self.lista.column(6, width=100)
         self.lista.pack(pady=10)
 
     def cerrar(self):
@@ -214,6 +215,5 @@ class Registro_Datos_Empleados(tk.Toplevel):
     def ventana_update(self):
         ventana = Ventana_Update(self, self)
 
-
     def ventana_eliminar(self):
-        ventana = None
+        ventana =  Ventana_Borrar(self, self)

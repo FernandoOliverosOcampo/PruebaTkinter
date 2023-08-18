@@ -16,7 +16,6 @@ class Ventana_Update(tk.Toplevel):
         self.protocol("WM_DELETE_WINDOW", self.Cerrar)
         self.mainloop()
 
-
     def Decorar_ventana(self):
         self.title("Actualizar empleado")
         self.iconbitmap("imagenes/F1.ico")
@@ -50,44 +49,44 @@ class Ventana_Update(tk.Toplevel):
 
     def Elementos_ventana(self):
         # TITULO
-        self.label_titulo = Label(self, text="Registro de usuarios", bg="white", font=("MS Reference Sans Serif", 15, 'bold'))
+        self.label_titulo = Label(self, text="Actualizar usuarios", bg="white", font=("MS Reference Sans Serif", 15, 'bold'))
         self.label_titulo.pack(pady=10)
         #ID
         self.lbl_id = Label(self, text="Id: ", bg="white", font=("MS Reference Sans Serif", 10, "bold"))
-        self.lbl_id.pack(anchor="w", padx=28)
+        self.lbl_id.pack(anchor="w", padx=118)
         self.combo_id = ttk.Combobox(self, width=35, height=2, font=('MS Reference Sans Serif', 10), justify="left")
         self.combo_id.state(["readonly"])
         self.combo_id['values']=self.Datos_Combo_Id()
-        self.combo_id.pack(anchor="w",padx=30,pady=5)
+        self.combo_id.pack(anchor="w",padx=120,pady=5)
         
         # NOMBRE
         self.label_nombre = Label(self, text="Nombre Completo: ", bg="white", font=('MS Reference Sans Serif', 10, 'bold'))
-        self.label_nombre.pack(anchor="w", padx=28)
+        self.label_nombre.pack(anchor="w", padx=118)
         self.txt_nombre = Entry(self, width=30, font=('MS Reference Sans Serif', 11), relief='groove', bg="#f7f9fc")
-        self.txt_nombre.pack(pady=5, anchor="w", padx=30)
+        self.txt_nombre.pack(pady=5, anchor="w", padx=120)
         # CORREO
         self.label_correo = Label(self, text="Correo electronico: ", font=('MS Reference Sans Serif', 10, 'bold'), bg="white")
-        self.label_correo.pack(anchor="w", padx=28)
+        self.label_correo.pack(anchor="w", padx=118)
         self.txt_correo = Entry(self, width=30, font=('MS Reference Sans Serif', 11), relief='groove', bg="#f7f9fc")
-        self.txt_correo.pack(pady=5, anchor="w", padx=30)
+        self.txt_correo.pack(pady=5, anchor="w", padx=120)
         # NUMERO
         self.lbl_numero = Label(self, text="Numero de telefono:", bg="white", font=('MS Reference Sans Serif', 10, 'bold'))
-        self.lbl_numero.place(x=347,y=162)
+        self.lbl_numero.place(x=467,y=162)
         self.txt_numero = Entry(self, width=30, font=('MS Reference Sans Serif', 11), relief="groove", bg="#f7f9fc")
-        self.txt_numero.place(x=350,y=188)
+        self.txt_numero.place(x=470,y=188)
         # TRABAJO
         self.lbl_trabajos = Label(self, text="Trabajo a cargo:", bg="white", font=('MS Reference Sans Serif', 10, 'bold'))
-        self.lbl_trabajos.place(x=347,y=272)
+        self.lbl_trabajos.place(x=467,y=272)
         self.list_trabajo = ttk.Combobox(self, width=35, height=3,font=('MS Reference Sans Serif', 10))
         self.list_trabajo.state(["readonly"])
-        self.list_trabajo.place(x=350,y=297)
+        self.list_trabajo.place(x=470,y=297)
         self.list_trabajo['values'] = self.Datos_Combo_Trabajo()
         # GENERO
         self.lbl_genero = Label(self, text="Genero:", bg='white', font=('MS Reference Sans Serif', 10, 'bold'))
-        self.lbl_genero.place(x=347,y=217)
+        self.lbl_genero.place(x=467,y=217)
         self.list_genero = ttk.Combobox(self, width=35, height=2, font=('MS Reference Sans Serif', 10))
         self.list_genero.state(["readonly"])
-        self.list_genero.place(x=350,y=242)
+        self.list_genero.place(x=470,y=242)
         self.list_genero['values'] = self.Datos_Combo_Genero()
         
         # BOTON

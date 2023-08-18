@@ -2,6 +2,8 @@ from tkinter import *
 from PIL import Image, ImageTk
 from Vista.Ventana_registro_Empleados import Registro_Datos_Empleados
 from Vista.Ventana_Productos import Ventana_Registro_Productos
+from Vista.Ventana_update_empleado import Ventana_Update
+from Vista.Ventana_Delete_empleado import Ventana_Borrar
 
 class Ventana_Menu():
     def __init__(self):
@@ -50,9 +52,11 @@ class Ventana_Menu():
         helpmenu = Menu(menu, tearoff=0)
         exitmenu = Menu(menu, tearoff=0)
         subopciones = Menu(menu, tearoff=0)
+        subopciones_registro = Menu(menu, tearoff=0)
 
-        menu.add_cascade(label="Archivo", menu=filemenu)
-        menu.add_cascade(label="Editar", menu=editmenu)
+
+        menu.add_cascade(label="Registro", menu=filemenu)
+        menu.add_cascade(label="Ventas", menu=editmenu)
         menu.add_cascade(label="Ayuda", menu=helpmenu)
         menu.add_cascade(label="Cerrar", menu=exitmenu)
 
@@ -60,9 +64,13 @@ class Ventana_Menu():
         
         subopciones.add_command(label="Registro empleados", command=self.ventana_empleado)
         subopciones.add_command(label="Registro productos", command=self.ventana_producto)
+        subopciones_registro.add_command(label="Actualizar empleados", command=self.ventana_update)
+        subopciones_registro.add_command(label="Actualizar productos", command=self.ventana_update)
+
 
         #cascada de los items
         filemenu.add_cascade(label="Registro", menu=subopciones)
+        filemenu.add_cascade(label="Actualizar", menu=subopciones_registro)
 
         helpmenu.add_command(label="Ayuda")
         helpmenu.add_separator()
@@ -71,10 +79,12 @@ class Ventana_Menu():
         exitmenu.add_command(label="Salir",command=self.root.quit)
  
 
-
+    #VENTANAS MENU
     def ventana_empleado(self):
         registro = Registro_Datos_Empleados(self.root)
-
     def ventana_producto(self):
         producto = Ventana_Registro_Productos(self.root)
-
+    def ventana_update(self):
+        update = Ventana_Update(self.root, self)
+    def ventana_borrar(self):
+        borrar = Ventana_Borrar(self.root, self)
