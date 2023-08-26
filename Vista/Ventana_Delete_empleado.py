@@ -5,14 +5,13 @@ from PIL import Image, ImageTk
 import pymysql
 
 class Ventana_Borrar(tk.Toplevel):
-    def __init__(self,root,registro_datos_empleados):
+    def __init__(self,root, controlador):
         super().__init__(root)
         self.root = root
-        self.registro_datos_empleados = registro_datos_empleados
+        self.controlador = controlador
         self.Decorar_Ventana()
         self.grab_set()
         self.protocol("WV_DELETE_WINDOW",self.cerrar)
-        self.mainloop()
 
     def Decorar_Ventana(self):
         self.config(bg="white")
@@ -58,26 +57,15 @@ class Ventana_Borrar(tk.Toplevel):
         self.btn_eliminar.pack(pady=15)
 
     def Eliminar_Empleado(self):
-        id = self.txt_id.get()
-        conexion = pymysql.connect(
-            host="localhost",
-            user="root",
-            password="",
-            db="bd_prueba"
-        )
-        if len(id) != 0:
+        id_empleado = self.txt_id.get()
+        if len(id_empleado)!=0:
             try:
-                cursor = conexion.cursor()
-                query = "DELETE FROM empleados WHERE id=%s"
-                dato=(id)
-                cursor.execute(query,dato)
-                conexion.commit()
-                conexion.close()
+                self.controlador.eliminar_empleado(id_empleado)
                 messagebox.showinfo(title="Registro eliminado",message="El registro fue eliminado satisfactoriamente")
                 self.destroy()
             except Exception as e:
                 messagebox.showerror(title="Error!", message="No se pudo eliminar el registro")
-                print("El eror esta en:", e)
+                print("El error esta en:",e)
         else:
-            messagebox.showwarning(title="Error!", message="El campo a eliminar esta vacio")
+            messagebox.showwarning(title="Verificación", message="El campo a eliminar esta vacio")
             

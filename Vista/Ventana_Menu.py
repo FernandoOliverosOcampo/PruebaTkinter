@@ -5,6 +5,7 @@ from Vista.Ventana_update_empleado import Ventana_Update
 from Vista.Ventana_Delete_empleado import Ventana_Borrar
 from Controlador.Controlador_Productos import Controlador_productos
 from Controlador.Controlador_empleados import Controlador_empleados
+from Controlador.Controlador_update import  Controlador_update
 class Ventana_Menu():
     def __init__(self):
         self.root = Tk()
@@ -86,7 +87,7 @@ class Ventana_Menu():
     def ventana_producto(self):
         producto = self.controlador = Controlador_productos(self.root)
     def ventana_update(self):
-        update = Ventana_Update(self.root, self)
+        update = Controlador_update(self.root)
     def ventana_borrar(self):
         borrar = Ventana_Borrar(self.root, self)
     

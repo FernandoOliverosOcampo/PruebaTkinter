@@ -2,14 +2,14 @@ import tkinter as tk
 from tkinter import *
 from Controlador.Controlador_Registro import Controlador_registro
 from Vista.Ventana_Menu import Ventana_Menu
-import pymysql
 from tkinter import messagebox
 from PIL import Image, ImageTk
 # --------VENTANA-----------
 
 class Ventana():
-    def __init__(self):
-        self.root = tk.Tk()
+    def __init__(self, root, controlador):
+        self.root = root
+        self.controlador = controlador
         self.DecoracionVentana()
         self.ConfigurarVentana()
         self.Imagen_Ventana()
@@ -78,23 +78,14 @@ class Ventana():
         usuario = self.txt_usuario.get()
         contraseña = self.txt_contraseña.get()
 
-        if len(usuario) !=0 and len(contraseña) !=0:
-           conexion = pymysql.connect(
-            host="localhost",
-            user="root",
-            password="",
-            db="bd_prueba"
-            )
-           cursor = conexion.cursor()
-           cursor.execute("SELECT contraseña FROM usuario WHERE usuario='"+usuario+"' and contraseña='"+contraseña+"'")
-
-           if cursor.fetchall():
+        if usuario and contraseña:
+           if self.controlador.iniciar_sesion(usuario, contraseña):
                 messagebox.showinfo(title="Inicio de sesión", message="Inicio de sesión correcto")
                 self.root.destroy()
                 Ventana_Menu()
            else:
                 messagebox.showerror(title="Error!",message="Usuario y contraseña incorrectos")
-           conexion.close()
+          
         else:
             messagebox.showerror(message="Error al ingresar, los campos estan vacios", title="Error!")
 

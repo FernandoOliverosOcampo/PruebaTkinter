@@ -2,15 +2,14 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import *
 from tkinter import messagebox
-import pymysql
 from PIL import Image, ImageTk
 
 class Ventana_Update(tk.Toplevel):
-    def __init__(self, root,registro_datos_empleados):
+    def __init__(self, root, controlador):
         super().__init__(root)
         self.root = root  # Almacena la referencia al objeto Toplevel
+        self.controlador = controlador
         self.Imagen_Ventana_Update()
-        self.registro_datos_empleados = registro_datos_empleados
         self.grab_set()
         self.Decorar_ventana()
         self.protocol("WM_DELETE_WINDOW", self.Cerrar)
@@ -56,7 +55,7 @@ class Ventana_Update(tk.Toplevel):
         self.lbl_id.pack(anchor="w", padx=118)
         self.combo_id = ttk.Combobox(self, width=35, height=2, font=('MS Reference Sans Serif', 10), justify="left")
         self.combo_id.state(["readonly"])
-        self.combo_id['values']=self.Datos_Combo_Id()
+        self.combo_id['values']=self.controlador.combo_id()
         self.combo_id.pack(anchor="w",padx=120,pady=5)
         
         # NOMBRE
@@ -80,76 +79,20 @@ class Ventana_Update(tk.Toplevel):
         self.list_trabajo = ttk.Combobox(self, width=35, height=3,font=('MS Reference Sans Serif', 10))
         self.list_trabajo.state(["readonly"])
         self.list_trabajo.place(x=470,y=297)
-        self.list_trabajo['values'] = self.Datos_Combo_Trabajo()
+        self.list_trabajo['values'] = self.controlador.combo_trabajo()
         # GENERO
         self.lbl_genero = Label(self, text="Genero:", bg='white', font=('MS Reference Sans Serif', 10, 'bold'))
         self.lbl_genero.place(x=467,y=217)
         self.list_genero = ttk.Combobox(self, width=35, height=2, font=('MS Reference Sans Serif', 10))
         self.list_genero.state(["readonly"])
         self.list_genero.place(x=470,y=242)
-        self.list_genero['values'] = self.Datos_Combo_Genero()
+        self.list_genero['values'] = self.controlador.combo_genero()
         
         # BOTON
         self.btn_update = Button(self, text="Actualizar", font=("MS Reference Sans Serif", 10, "bold"), width=15, height=1, bg="#ea1608", fg="white", command=self.Actualizar_Datos )
         self.btn_update.pack(side="bottom", pady=15)
     
 #CONEXION A BD
-    def Datos_Combo_Id(self):
-        conexion = pymysql.connect(
-            host="localhost",
-            user="root",
-            password="",
-            db="bd_prueba"
-        )
-        try:
-           cursor = conexion.cursor()
-           query="SELECT id FROM empleados"
-           cursor.execute(query)
-           data=[]
-           for rows in cursor:
-                data.append(rows[0])
-           return(data)
-                    
-        except Exception as e:
-           print("El error esta en:", e)
-
-    def Datos_Combo_Trabajo(self):
-        conexion = pymysql.connect(
-            host="localhost",
-            user="root",
-            password="",
-            db="bd_prueba"
-        )
-        try:
-           cursor = conexion.cursor()
-           query="SELECT trabajo FROM trabajo"
-           cursor.execute(query)
-           data=[]
-           for rows in cursor:
-                data.append(rows[0])
-           return(data)
-                    
-        except Exception as e:
-           print("El error esta en:", e)
-
-    def Datos_Combo_Genero(self):
-        conexion = pymysql.connect(
-            host="localhost",
-            user="root",
-            password="",
-            db="bd_prueba"
-        )
-        try:
-           cursor = conexion.cursor()
-           query="SELECT genero FROM genero"
-           cursor.execute(query)
-           data=[]
-           for rows in cursor:
-               data.append(rows[0])
-           return(data)
-        except Exception as e:
-            print("El error esta en: ", e)
-
     def Actualizar_Datos(self):
         id = self.combo_id.get()
         nombre = self.txt_nombre.get()
@@ -157,20 +100,10 @@ class Ventana_Update(tk.Toplevel):
         numero = self.txt_numero.get()
         trabajo = self.list_trabajo.get()
         genero = self.list_genero.get()
-        conexion = pymysql.connect(
-            host="localhost",
-            user="root",
-            password="",
-            db="bd_prueba"
-        )
-        if len(nombre) != 0 and len(correo) != 0 and len(numero) != 0 and len(trabajo)!=0 and len(genero) !=0:
+      
+        if len(id) !=0 and len(nombre) != 0 and len(correo) != 0 and len(numero) != 0 and len(trabajo)!=0 and len(genero) !=0:
             try:
-                cursor = conexion.cursor()
-                query = "UPDATE empleados SET Nombre_completo = %s, Correo_electronico = %s, Numero_Telefono = %s, Trabajo_cargo = %s, Genero = %s WHERE id = %s"
-                datos=(nombre, correo, numero, trabajo, genero, id)
-                cursor.execute(query,datos)
-                conexion.commit()
-                conexion.close()
+                self.controlador.actualizar_empleado(nombre, correo, numero, trabajo, genero, id)
                 messagebox.showinfo(title="Datos actualizados", message="Los datos fueron actualizados correctamente")
                 self.destroy()
                 

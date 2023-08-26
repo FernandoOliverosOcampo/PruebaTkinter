@@ -3,8 +3,8 @@ from tkinter import ttk
 from tkinter import *
 from tkinter import messagebox
 from PIL import Image, ImageTk
-from Vista.Ventana_update_empleado import Ventana_Update
-from Vista.Ventana_Delete_empleado import Ventana_Borrar
+from Controlador.Controlador_update import Controlador_update
+from Controlador.Controlador_delete import Controlador_eliminar
 
 class Registro_Datos_Empleados(tk.Toplevel):
     def __init__(self,root, controlador):
@@ -141,7 +141,7 @@ class Registro_Datos_Empleados(tk.Toplevel):
             self.lista.insert('', 'end', values=empleado)
 
     def ventana_update(self):
-        ventana = Ventana_Update(self, self)
+        ventana = Controlador_update(self.root)
 
     def ventana_eliminar(self):
-        ventana =  Ventana_Borrar(self, self)
+        ventana =  Controlador_eliminar(self.root)
