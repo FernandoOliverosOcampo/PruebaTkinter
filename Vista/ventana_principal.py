@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import *
-from Vista.Ventana_Registro import Ventana_Registro_Vista
+from Controlador.Controlador_Registro import Controlador_registro
 from Vista.Ventana_Menu import Ventana_Menu
 import pymysql
 from tkinter import messagebox
@@ -99,5 +99,5 @@ class Ventana():
             messagebox.showerror(message="Error al ingresar, los campos estan vacios", title="Error!")
 
     def Abrir_Registro(self):
-        Ventana_Registro_Vista(self.root)
+       Controlador_registro(self.root)
        

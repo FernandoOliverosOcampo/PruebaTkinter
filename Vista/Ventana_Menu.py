@@ -1,16 +1,16 @@
 from tkinter import *
 from PIL import Image, ImageTk
 from Vista.Ventana_registro_Empleados import Registro_Datos_Empleados
-from Vista.Ventana_Productos import Ventana_Registro_Productos
 from Vista.Ventana_update_empleado import Ventana_Update
 from Vista.Ventana_Delete_empleado import Ventana_Borrar
-
+from Controlador.Controlador_Productos import Controlador_productos
+from Controlador.Controlador_empleados import Controlador_empleados
 class Ventana_Menu():
     def __init__(self):
         self.root = Tk()
         self.Elementos_Ventana()
-        self.Detalles_Ventana()
         self.Menu()
+        self.Detalles_Ventana()
         self.root.mainloop()
 
     def Detalles_Ventana(self):
@@ -20,6 +20,7 @@ class Ventana_Menu():
         self.root.resizable(0,0)
         self.Dimensiones_Ventana()
         self.root.config(background="white")
+       
         
     def Dimensiones_Ventana(self):
        #tamaño de la patalla
@@ -41,7 +42,7 @@ class Ventana_Menu():
             self.lbl_imagen.place(x=570, y=200)
         except Exception as e:
             print("Error al cargar la imagen:", e)
-
+        
     def Menu(self):
         #configurar menu
         menu = Menu(self.root)
@@ -81,10 +82,11 @@ class Ventana_Menu():
 
     #VENTANAS MENU
     def ventana_empleado(self):
-        registro = Registro_Datos_Empleados(self.root)
+        registro = Controlador_empleados(self.root)
     def ventana_producto(self):
-        producto = Ventana_Registro_Productos(self.root)
+        producto = self.controlador = Controlador_productos(self.root)
     def ventana_update(self):
         update = Ventana_Update(self.root, self)
     def ventana_borrar(self):
         borrar = Ventana_Borrar(self.root, self)
+    

@@ -1,14 +1,15 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
-import pymysql
 from PIL import Image, ImageTk
 from imagenes import *
 
 class Ventana_Registro_Vista(tk.Toplevel):
 
-    def __init__(self,root):
+    def __init__(self,root,controlador):
         super().__init__(root)
+        self.root = root
+        self.controlador = controlador
         self.configurar_ventana()
         self.Elementos_Ventana()
         self.ventana_bonita()
@@ -62,7 +63,6 @@ class Ventana_Registro_Vista(tk.Toplevel):
         self.txt_contraseña = Entry(self, relief="groove", bg="#f7f9fc", width=30, font=('MS Reference Sans Serif', 12), show="*")
         self.txt_contraseña.pack(pady=10)
         #regresar
-      
         self.b1 = Button(self, text="Registrate", width=15, height=1, background="#ea1608", fg="white", font=('MS Reference Sans Serif', 10,'bold'),command=self.registrar_usuario)
         self.b1.pack(padx=10)
     
@@ -70,30 +70,12 @@ class Ventana_Registro_Vista(tk.Toplevel):
         nombre = self.txt_nombre.get()
         usuario = self.txt_usuario.get()
         contraseña = self.txt_contraseña.get()
-        # Realizar la conexión a la base de datos
-        
-        if len(nombre) !=0 and len(usuario)  !=0  and len(contraseña)!=0 :
-            try:
-                conexion = pymysql.connect(
-                    host="localhost",
-                    user="root",
-                    password="",
-                    db="bd_prueba"
-                )
-                cursor = conexion.cursor()
-                # Insertar los datos en la tabla
-                query = "INSERT INTO usuario (nombre, usuario, contraseña) VALUES (%s, %s, %s)"
-                datos = (nombre, usuario, contraseña)
-                cursor.execute(query, datos)
-                # Confirmar y cerrar la conexión
-                conexion.commit()
-                conexion.close()
-                messagebox.showinfo(message="Usuario registrado con éxito.", title="Exito")
-                self.destroy()
 
-            except:
-                messagebox.showerror(message="Error al registrar el usuario:",title="Error")
-            
+        if nombre and usuario and contraseña:
+            if self.controlador.registrar_usuarios(nombre, usuario, contraseña):
+                messagebox.showinfo(title="Confirmación", message="El usuario fue ingresado satisfactoriamente")
+            else:
+                messagebox.showerror(title="Error!",message="Hubo un error")
         else:
-            messagebox.showerror(message="Verifique que los campos esten llenos", title="Campos vacios")
-            self.destroy()
+            messagebox.showwarning(title="verificación", message="Los campos estan vacios, verifique que cada campo este lleno por favor")
+        

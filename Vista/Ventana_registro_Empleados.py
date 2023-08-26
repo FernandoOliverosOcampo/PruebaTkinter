@@ -2,15 +2,15 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import *
 from tkinter import messagebox
-import pymysql
 from PIL import Image, ImageTk
 from Vista.Ventana_update_empleado import Ventana_Update
 from Vista.Ventana_Delete_empleado import Ventana_Borrar
 
 class Registro_Datos_Empleados(tk.Toplevel):
-    def __init__(self,root):
+    def __init__(self,root, controlador):
         super().__init__(root)
         self.root = root
+        self.controlador = controlador
         self.Imagen_Ventana()
         self.Decoracion_Ventana()
         self.Actualizar_Tabla() 
@@ -42,9 +42,6 @@ class Registro_Datos_Empleados(tk.Toplevel):
     def Imagen_Ventana(self):
         try:
             self.bg = Image.open("imagenes/descarga1.png")
-            # new_width = 400  # Nuevo ancho en píxeles
-            # new_height = 300  # Nuevo alto en píxeles
-            # self.bg = self.bg.resize((new_width, new_height),Image.LANCZOS)
             self.background_img = ImageTk.PhotoImage(self.bg)
             self.lbl_imagen = tk.Label(self, image=self.background_img,bg="white")
             self.lbl_imagen.pack()
@@ -78,14 +75,14 @@ class Registro_Datos_Empleados(tk.Toplevel):
         self.list_trabajo = ttk.Combobox(self, width=35, height=3,font=('MS Reference Sans Serif', 10))
         self.list_trabajo.state(["readonly"])
         self.list_trabajo.pack(pady=5, anchor="w", padx=120)
-        self.list_trabajo['values'] = self.Datos_Combo_Trabajo()
+        self.list_trabajo['values'] = self.controlador.datos_combo_trabajo()
         # GENERO
         self.lbl_genero = Label(self, text="Genero:", bg='white', font=('MS Reference Sans Serif', 10, 'bold'))
         self.lbl_genero.place(x=468,y=368)
         self.list_genero = ttk.Combobox(self, width=35, height=2, font=('MS Reference Sans Serif', 10))
         self.list_genero.state(["readonly"])
         self.list_genero.place(x=470,y=393)
-        self.list_genero['values'] = self.Datos_Combo_Genero()
+        self.list_genero['values'] = self.controlador.datos_combo_genero()
         
         # BOTON
         self.btn_update = Button(self, text="Actualizar", font=("MS Reference Sans Serif", 10, "bold"), width=15, height=1, bg="#ea1608", fg="white", command=self.ventana_update)
@@ -119,67 +116,6 @@ class Registro_Datos_Empleados(tk.Toplevel):
         self.grab_release()  
         self.destroy() 
 
-    def Actualizar_Tabla(self):
-        self.lista.delete(*self.lista.get_children())  
-        elementos = self.Retorno_de_elementos()  
-        for i in elementos:
-            self.lista.insert('', 'end', values=i)
-
- #CONEXION DE LA BASE DE DATOS       
-    def Retorno_de_elementos(self):
-        try: 
-            conexion = pymysql.connect(
-                host="localhost",
-                user="root",
-                password="",
-                db="bd_prueba"
-            )
-            cursor = conexion.cursor()
-            sql = "SELECT * FROM empleados"
-            cursor.execute(sql)
-            return cursor.fetchall()
-
-        except Exception as e:
-            print("Error en la conexion, se encuentra en", e)
-            return []
-
-
-    def Datos_Combo_Trabajo(self):
-        conexion = pymysql.connect(
-            host="localhost",
-            user="root",
-            password="",
-            db="bd_prueba"
-        )
-        try:
-           cursor = conexion.cursor()
-           query="SELECT trabajo FROM trabajo"
-           cursor.execute(query)
-           data=[]
-           for rows in cursor:
-                data.append(rows[0])
-           return(data)
-                    
-        except Exception as e:
-           print("El error esta en:", e)
-
-    def Datos_Combo_Genero(self):
-        conexion = pymysql.connect(
-            host="localhost",
-            user="root",
-            password="",
-            db="bd_prueba"
-        )
-        try:
-           cursor = conexion.cursor()
-           query="SELECT genero FROM genero"
-           cursor.execute(query)
-           data=[]
-           for rows in cursor:
-               data.append(rows[0])
-           return(data)
-        except Exception as e:
-            print("El error esta en: ", e)
 
     def Registrar_Empleado(self):
         nombre = self.txt_nombre.get()
@@ -188,29 +124,21 @@ class Registro_Datos_Empleados(tk.Toplevel):
         trabajo = self.list_trabajo.get()
         genero = self.list_genero.get()
 
-        if len(nombre) != 0 and len(correo) != 0 and len(numero) != 0 and len(trabajo)!=0 and len(genero) !=0:
-            try:
-                conexion = pymysql.connect(
-                    host="localhost",
-                    user="root",
-                    password="",
-                    db="bd_prueba"
-                )
-                cursor = conexion.cursor()
-                query = "INSERT INTO empleados (Nombre_completo, Correo_electronico, Numero_Telefono, Trabajo_cargo, Genero) VALUES (%s, %s, %s, %s, %s)"
-                datos = (nombre, correo, numero, trabajo, genero)
-                cursor.execute(query, datos)
-                conexion.commit()
-                conexion.close()
+        if nombre and correo and numero and trabajo and genero:
+            if self.controlador.insertar_empleados(nombre, correo, numero, trabajo, genero):
+                messagebox.showinfo(title="Correcto!", message="El empleado fue ingresado correctamente")
                 self.Actualizar_Tabla()
-                messagebox.showinfo(title="Datos insertados", message="Los datos fueron ingresados exitosamente")
-                
-            except Exception as e:
-                messagebox.showerror(title="Error!!!", message="Error en la conexion")
-                print("error en: ", e)
+            else:
+                messagebox.showerror(title="Error!", message="Hubo un error al ingresar el empleado")
                
         else:
-            messagebox.showerror(title="Error!!!", message="Los campos estan vacios, por favor llenelos")
+            messagebox.showwarning(title="Verificación", message="Por favor rellene los campos y verifiquen que no estén vacios")
+
+    def Actualizar_Tabla(self):
+        self.lista.delete(*self.lista.get_children())  
+        empleados = self.controlador.retorno_elementos() 
+        for empleado in empleados:
+            self.lista.insert('', 'end', values=empleado)
 
     def ventana_update(self):
         ventana = Ventana_Update(self, self)
