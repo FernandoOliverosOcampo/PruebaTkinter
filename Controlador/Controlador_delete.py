@@ -11,5 +11,8 @@ class Controlador_eliminar:
     def eliminar_empleado(self, id_empleado):
         return self.modelo.eliminar_empleado(id_empleado)
     
+    def retornar_empleados(self):
+        return self.modelo.mostrar_empleados()
+    
     def cerrar_conexion(self):
         return self.modelo.cerrar_conexion()

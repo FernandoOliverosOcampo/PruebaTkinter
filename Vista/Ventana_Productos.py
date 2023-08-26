@@ -76,7 +76,7 @@ class Ventana_Registro_Productos(tk.Toplevel):
         # FECHA
         self.lbl_fecha = Label(self, text="Fecha:", bg='white', font=('MS Reference Sans Serif', 10, 'bold'))
         self.lbl_fecha.place(x=468,y=348)  
-        self.calendar = DateEntry(self, width=27, height=4,font=('MS Reference Sans Serif', 11)) 
+        self.calendar = DateEntry(self, width=35, height=4,font=('MS Reference Sans Serif', 10)) 
         self.calendar.config(headersbackground='#364c55', headersforeground="#fff", background="#fff", foreground="#000")
         self.calendar.place(x=470,y=372)
         
@@ -107,7 +107,13 @@ class Ventana_Registro_Productos(tk.Toplevel):
         self.lista.column(5, width=100, anchor=CENTER)
         self.lista.column(6, width=100, anchor=CENTER)
         self.lista.pack(pady=10)
-        
+    
+    def actualizar_tabla(self):
+        self.lista.delete(*self.lista.get_children())
+        productos = self.controlador.obtener_productos()
+        for producto in productos:
+            self.lista.insert("", "end", values=producto)
+            
     def registrar_productos(self):
         nombre = self.txt_nombre.get()
         descripcion = self.txt_descripcion.get()
@@ -123,9 +129,3 @@ class Ventana_Registro_Productos(tk.Toplevel):
                 messagebox.showerror(title="Error!", message="No se pudieron ingresar los datos")
         else:
             messagebox.showwarning(title="Verificación", message="Por favor rellene los campos y verifiquen que no estén vacios")
-
-    def actualizar_tabla(self):
-        self.lista.delete(*self.lista.get_children())
-        productos = self.controlador.obtener_productos()
-        for producto in productos:
-            self.lista.insert("", "end", values=producto)

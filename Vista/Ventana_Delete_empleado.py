@@ -17,6 +17,7 @@ class Ventana_Borrar(tk.Toplevel):
         self.config(bg="white")
         self.title("Borrar empleado")
         self.iconbitmap("imagenes/F1.ico")
+        self.resizable(0,0)
         self.Dimensiones_ventana()
         self.Imagen_Ventana()
         self.Elementos_Ventana()
@@ -47,22 +48,23 @@ class Ventana_Borrar(tk.Toplevel):
     def Elementos_Ventana(self):
         self.lbl_titulo = Label(self, text="Borrar Empleado", font=("MS Reference Sans Serif", 15, 'bold'), bg="white")
         self.lbl_titulo.pack()
-        self.lbl_contenido = Label(self, text="Para borrar el empleado debe ingresar el id", bg="white", font=("MS Reference Sans Serif", 10, 'bold'))
+        self.lbl_contenido = Label(self, text="Selecione el empleado que desea borrar", bg="white", font=("MS Reference Sans Serif", 10, 'bold'))
         self.lbl_contenido.pack(pady=15)
-        self.lbl_titulo_id = Label(self, text="ID:",bg="white", font=("MS Reference Sans Serif", 10, 'bold'))
+        self.lbl_titulo_id = Label(self, text="NOMBRE:",bg="white", font=("MS Reference Sans Serif", 10, 'bold'))
         self.lbl_titulo_id.pack(pady=5)
-        self.txt_id = Entry(self, bg="#f7f9fc", font=("MS Reference Sans Serif", 10))
-        self.txt_id.pack(pady=15)
+        self.empleado = ttk.Combobox(self, font=("MS Reference Sans Serif", 10, 'bold'), width=30, height=5)
+        self.empleado.state(['readonly'])
+        self.empleado['values'] = self.controlador.retornar_empleados()
+        self.empleado.pack(pady=15)
         self.btn_eliminar = Button(self, text="Eliminar", width=15, height=1,font=("MS Reference Sans Serif", 10, 'bold'),fg="white", bg="#ea1608", command=self.Eliminar_Empleado)
         self.btn_eliminar.pack(pady=15)
 
     def Eliminar_Empleado(self):
-        id_empleado = self.txt_id.get()
+        id_empleado = self.empleado.get()
         if len(id_empleado)!=0:
             try:
                 self.controlador.eliminar_empleado(id_empleado)
                 messagebox.showinfo(title="Registro eliminado",message="El registro fue eliminado satisfactoriamente")
-                self.destroy()
             except Exception as e:
                 messagebox.showerror(title="Error!", message="No se pudo eliminar el registro")
                 print("El error esta en:",e)

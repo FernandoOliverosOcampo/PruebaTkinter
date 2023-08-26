@@ -30,7 +30,7 @@ class Ventana():
         self.root.geometry(str(wventana)+"x"+str(hventana) + "+"+str(pwidth)+"+"+str(pheight))
 
     def DecoracionVentana(self):
-        self.root.title("Ventana prueba")
+        self.root.title("Inicio de sesión")
         self.root.config(bg="white")
         self.root.iconbitmap("imagenes/F1.ico")
         self.root.resizable(0, 0)

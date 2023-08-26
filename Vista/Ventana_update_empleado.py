@@ -19,6 +19,7 @@ class Ventana_Update(tk.Toplevel):
         self.title("Actualizar empleado")
         self.iconbitmap("imagenes/F1.ico")
         self.config(bg="white")
+        self.resizable(0,0)
         self.Dimensiones_Ventana()
         self.Elementos_ventana()
     def Cerrar(self):
@@ -53,7 +54,7 @@ class Ventana_Update(tk.Toplevel):
         #ID
         self.lbl_id = Label(self, text="Id: ", bg="white", font=("MS Reference Sans Serif", 10, "bold"))
         self.lbl_id.pack(anchor="w", padx=118)
-        self.combo_id = ttk.Combobox(self, width=35, height=2, font=('MS Reference Sans Serif', 10), justify="left")
+        self.combo_id = ttk.Combobox(self, width=35, height=2, font=('MS Reference Sans Serif', 10), justify="left",background="white")
         self.combo_id.state(["readonly"])
         self.combo_id['values']=self.controlador.combo_id()
         self.combo_id.pack(anchor="w",padx=120,pady=5)

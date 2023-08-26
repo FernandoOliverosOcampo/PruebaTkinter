@@ -1,11 +1,10 @@
 from tkinter import *
 from PIL import Image, ImageTk
-from Vista.Ventana_registro_Empleados import Registro_Datos_Empleados
-from Vista.Ventana_update_empleado import Ventana_Update
-from Vista.Ventana_Delete_empleado import Ventana_Borrar
+from Controlador.Controlador_delete import Controlador_eliminar
 from Controlador.Controlador_Productos import Controlador_productos
 from Controlador.Controlador_empleados import Controlador_empleados
 from Controlador.Controlador_update import  Controlador_update
+from Controlador.Controlador_ventas import Controlador_Ventas
 class Ventana_Menu():
     def __init__(self):
         self.root = Tk()
@@ -49,16 +48,17 @@ class Ventana_Menu():
         menu = Menu(self.root)
         self.root.config(menu=menu)
         #Añadir los items
-        filemenu = Menu(menu, tearoff=0)
-        editmenu = Menu(menu,tearoff=0)
-        helpmenu = Menu(menu, tearoff=0)
-        exitmenu = Menu(menu, tearoff=0)
-        subopciones = Menu(menu, tearoff=0)
-        subopciones_registro = Menu(menu, tearoff=0)
+        filemenu = Menu(menu, tearoff=0,background="white")
+        ventasmenu = Menu(menu,tearoff=0,background="white")
+        helpmenu = Menu(menu, tearoff=0,background="white")
+        exitmenu = Menu(menu, tearoff=0,background="white")
+        subopciones = Menu(menu, tearoff=0,background="white")
+        subopciones_registro = Menu(menu, tearoff=0,background="white")
+        subopciones_eliminar = Menu(menu, tearoff=0,background="white")
 
 
-        menu.add_cascade(label="Registro", menu=filemenu)
-        menu.add_cascade(label="Ventas", menu=editmenu)
+        menu.add_cascade(label="Opciones", menu=filemenu)
+        menu.add_cascade(label="Ventas", menu=ventasmenu)
         menu.add_cascade(label="Ayuda", menu=helpmenu)
         menu.add_cascade(label="Cerrar", menu=exitmenu)
 
@@ -68,26 +68,34 @@ class Ventana_Menu():
         subopciones.add_command(label="Registro productos", command=self.ventana_producto)
         subopciones_registro.add_command(label="Actualizar empleados", command=self.ventana_update)
         subopciones_registro.add_command(label="Actualizar productos", command=self.ventana_update)
-
+        subopciones_eliminar.add_command(label="Eliminar Empleado", command=self.ventana_borrar)
 
         #cascada de los items
         filemenu.add_cascade(label="Registro", menu=subopciones)
         filemenu.add_cascade(label="Actualizar", menu=subopciones_registro)
+        filemenu.add_cascade(label="Eliminar", menu=subopciones_eliminar)
+
+        ventasmenu.add_command(label="Ventas", command=self.ventana_ventas)
 
         helpmenu.add_command(label="Ayuda")
         helpmenu.add_separator()
         helpmenu.add_command(label="Acerca de ...")
 
-        exitmenu.add_command(label="Salir",command=self.root.quit)
+        exitmenu.add_command(label="Salir",command=self.cerrar)
  
 
     #VENTANAS MENU
     def ventana_empleado(self):
         registro = Controlador_empleados(self.root)
     def ventana_producto(self):
-        producto = self.controlador = Controlador_productos(self.root)
+        producto = Controlador_productos(self.root)
     def ventana_update(self):
         update = Controlador_update(self.root)
     def ventana_borrar(self):
-        borrar = Ventana_Borrar(self.root, self)
+        borrar = Controlador_eliminar(self.root)
+    
+    def ventana_ventas(self):
+        ventas = Controlador_Ventas(self.root)
+    def cerrar(self):
+        self.root.destroy()
     
